@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Mon Application" type="Application" factoryName="Application">
-    <option name="MAIN_CLASS_NAME" value="com.spring.demo.dseerutt.main.SpringdemoApplication" />
+    <option name="MAIN_CLASS_NAME" value="com.spring.demo.dseerutt.main.SpringDemoApplication" />
     <module name="dseerutt" />
     <method v="2">
       <option name="Make" enabled="true" />
