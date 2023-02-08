@@ -1,0 +1,43 @@
+{
+	"info": {
+		"_postman_id": "98f72a16-7a60-4fad-8b8a-b8dfb08434a9",
+		"name": "Spring Demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25753166"
+	},
+	"item": [
+		{
+			"name": "HealthCheck",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{hostname}}:{{port}}/health",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Index",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{hostname}}:{{port}}",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{port}}"
+				}
+			},
+			"response": []
+		}
+	]
+}
