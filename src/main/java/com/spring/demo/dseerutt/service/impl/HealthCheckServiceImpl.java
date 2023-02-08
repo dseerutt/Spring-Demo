@@ -11,7 +11,7 @@ public class HealthCheckServiceImpl implements HealthCheckService {
 
     @Override
     public String getHealthCheck() {
-        LOGGER.info("Index is called");
-        return "Index";
+        LOGGER.info("Health check is called");
+        return "Health";
     }
 }
