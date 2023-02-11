@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Spring Demo Prod" type="Application" factoryName="Application">
+    <envs>
+      <env name="spring.profiles.active" value="prod" />
+    </envs>
+    <option name="MAIN_CLASS_NAME" value="com.spring.demo.dseerutt.Application" />
+    <module name="dseerutt" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

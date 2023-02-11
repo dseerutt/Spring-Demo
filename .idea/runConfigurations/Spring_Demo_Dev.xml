@@ -1,5 +1,8 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Mon Application" type="Application" factoryName="Application">
+  <configuration default="false" name="Spring Demo Dev" type="Application" factoryName="Application">
+    <envs>
+      <env name="spring.profiles.active" value="dev" />
+    </envs>
     <option name="MAIN_CLASS_NAME" value="com.spring.demo.dseerutt.Application" />
     <module name="dseerutt" />
     <method v="2">

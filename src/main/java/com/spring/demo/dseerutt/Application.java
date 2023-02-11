@@ -7,6 +7,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+// run app from cmd line: mvn spring-boot:run
 @SpringBootApplication
 public class Application implements ApplicationRunner {
     private static final Logger LOGGER = LogManager.getLogger(Application.class);
