@@ -1,7 +1,6 @@
 package com.spring.demo.dseerutt.controller;
 
 import com.spring.demo.dseerutt.Application;
-import com.spring.demo.dseerutt.service.HealthCheckService;
 import com.spring.demo.dseerutt.service.IndexService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
@@ -16,11 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = {"/"})
 public class Controller {
-    private final String HEALTH_CHECK = "health";
     private static final Logger LOGGER = LogManager.getLogger(Application.class);
 
-    @Autowired
-    private HealthCheckService healthCheckService;
     @Autowired
     private IndexService indexService;
 
@@ -28,10 +24,5 @@ public class Controller {
     @ResponseBody
     public String getIndex() {
         return indexService.getIndex();
-    }
-
-    @GetMapping(value = HEALTH_CHECK)
-    public String getHealthCheck() {
-        return healthCheckService.getHealthCheck();
     }
 }
