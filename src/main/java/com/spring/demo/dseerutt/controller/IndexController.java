@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = {"/"})
-public class Controller {
+public class IndexController {
     private static final Logger LOGGER = LogManager.getLogger(Application.class);
 
     @Autowired
