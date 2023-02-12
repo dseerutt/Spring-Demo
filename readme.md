@@ -20,22 +20,26 @@ This is a computer buying app:
 
 Computer:
 
+- int id
 - String brand
+- String version
 - String description
-- Integer price
+- double price
 
 Computer Store:
 
+- int id
 - Computer computer
-- String stock
-- Date last date of provision
+- int stock
+- Date lastProvisionDate
 
 Sale:
 
+- int id
 - String clientName
-- ComputerBrand computer brand
-- String number
-- Date date of sale
+- Computer computer
+- int quantity
+- Date saleDate
 
 ## New webservice ideas
 
