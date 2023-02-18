@@ -1,4 +1,4 @@
-package com.spring.demo.dseerutt.dto.item;
+package com.spring.demo.dseerutt.dto.item.client;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

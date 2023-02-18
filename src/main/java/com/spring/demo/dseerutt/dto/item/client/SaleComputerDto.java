@@ -1,4 +1,4 @@
-package com.spring.demo.dseerutt.dto.item;
+package com.spring.demo.dseerutt.dto.item.client;
 
 import com.spring.demo.dseerutt.model.object.Computer;
 import com.spring.demo.dseerutt.model.object.Sale;

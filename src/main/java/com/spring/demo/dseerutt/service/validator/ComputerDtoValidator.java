@@ -1,6 +1,6 @@
 package com.spring.demo.dseerutt.service.validator;
 
-import com.spring.demo.dseerutt.dto.item.ComputerDto;
+import com.spring.demo.dseerutt.dto.item.client.ComputerDto;
 import com.spring.demo.dseerutt.model.exception.computer.ComputerAlreadyExistsException;
 import com.spring.demo.dseerutt.model.exception.computer.ComputerNotFoundException;
 import com.spring.demo.dseerutt.model.exception.server.ValidationException;

@@ -1,4 +1,4 @@
-package com.spring.demo.dseerutt.dto.item;
+package com.spring.demo.dseerutt.dto.item.client;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,13 +9,10 @@ import lombok.ToString;
 @NoArgsConstructor
 @Setter
 @Getter
-public class ComputerDto {
+public class ProvisionDto {
 
     private int id;
     private String brand;
     private String version;
-    private String description;
-    private double price;
-    private String lastProvisionDate;
-    private int stock;
+    private int quantity;
 }

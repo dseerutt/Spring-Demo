@@ -1,16 +1,18 @@
 package com.spring.demo.dseerutt.service.impl;
 
-import com.spring.demo.dseerutt.dto.item.SaleComputerDto;
-import com.spring.demo.dseerutt.dto.item.SaleDto;
+import com.spring.demo.dseerutt.dto.item.client.SaleComputerDto;
+import com.spring.demo.dseerutt.dto.item.client.SaleDto;
 import com.spring.demo.dseerutt.dto.mapper.SaleDtoMapper;
 import com.spring.demo.dseerutt.model.exception.computer.ComputerNotFoundException;
 import com.spring.demo.dseerutt.model.object.Computer;
+import com.spring.demo.dseerutt.model.object.ComputerStore;
 import com.spring.demo.dseerutt.model.object.Sale;
 import com.spring.demo.dseerutt.model.utils.Utils;
 import com.spring.demo.dseerutt.repository.ComputerRepository;
 import com.spring.demo.dseerutt.repository.SaleRepository;
 import com.spring.demo.dseerutt.service.SaleService;
 import com.spring.demo.dseerutt.service.validator.SaleDtoValidator;
+import jakarta.transaction.Transactional;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.mapstruct.factory.Mappers;
@@ -36,7 +38,7 @@ public class SaleServiceImpl implements SaleService {
     public SaleDto getSale(int id) {
         return mapper.saleToSaleDto(saleRepository.findById(id)
                 .orElseThrow(() -> {
-                    String message = "Sale not found " + id;
+                    String message = "Sale not found with id " + id;
                     LOGGER.error(message);
                     return new ComputerNotFoundException(message);
                 }));
@@ -51,17 +53,21 @@ public class SaleServiceImpl implements SaleService {
     public SaleDto addSale(SaleDto saleDto) {
         SaleComputerDto saleComputerDto = saleDtoValidator.validatePost(saleDto);
         Computer computer = saleComputerDto.getComputer();
+        ComputerStore computerStore = computer.getComputerStore();
+        computerStore.setStock(computerStore.getStock() - 1);
         Sale sale = mapper.saleDtoToSale(saleDto);
         sale.setComputer(computer);
         return mapper.saleToSaleDto(saleRepository.save(sale));
     }
 
+    @Transactional
     @Override
     public void deleteSale(int id) {
         saleRepository.deleteById(id);
     }
 
     public SaleDto updateSale(SaleDto saleDto) {
+        // Do not update stock for modification of a sale
         SaleComputerDto saleComputerDto = saleDtoValidator.validatePut(saleDto);
         Sale sale = saleComputerDto.getSale();
         sale.setSaleDate(Utils.parseDate(saleDto.getSaleDate()));

@@ -1,6 +1,6 @@
 package com.spring.demo.dseerutt.service;
 
-import com.spring.demo.dseerutt.dto.item.SaleDto;
+import com.spring.demo.dseerutt.dto.item.client.SaleDto;
 
 import java.util.List;
 

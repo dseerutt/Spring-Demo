@@ -8,12 +8,7 @@ This is a computer buying app:
 
 ## Webservices endpoints
 
-1. GET / -> Get index page
-2. GET /client/computer -> Gets the available computers and their description
-4. POST /client/sale/{id} -> Buys the computer
-5. GET /provider/computer -> Gets the available computer, their description and the stock
-6. POST /provider/computer/provision -> Provision X new computer to the store from any type
-7. POST /provider/computer/deprovision -> Deprovision X new computer from any type
+See index in /
 
 ## Data structures
 
@@ -23,20 +18,22 @@ Computer:
 - String brand
 - String version
 - String description
+- String serialNumber
 - double price
 
 Computer Store:
 
-- int id
-- Computer computer
+- int computer_id
 - int stock
 - Date lastProvisionDate
+- Boolean enabled
 
 Sale:
 
 - int id
 - String clientName
-- Computer computer
+- String salesman
+- int computer_id
 - int quantity
 - Date saleDate
 

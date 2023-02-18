@@ -19,8 +19,7 @@ public class Computer {
     @Column(name = "id")
     private int id;
 
-    @OneToOne(mappedBy = "computer", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
+    @OneToOne(mappedBy = "computer")
     private ComputerStore computerStore;
 
     @Column(name = "brand")

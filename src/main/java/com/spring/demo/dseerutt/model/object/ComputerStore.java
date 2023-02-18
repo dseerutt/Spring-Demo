@@ -21,9 +21,9 @@ public class ComputerStore {
     @Column(name = "computer_id")
     private int id;
 
+    @ToString.Exclude
     @OneToOne
-    @MapsId
-    @JoinColumn(name = "computer_id")
+    @JoinColumn(name = "computer_id", referencedColumnName = "id")
     private Computer computer;
 
     @Column(name = "lastProvisionDate")
