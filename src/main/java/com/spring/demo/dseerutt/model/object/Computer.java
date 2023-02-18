@@ -1,17 +1,33 @@
 package com.spring.demo.dseerutt.model.object;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
+@ToString
+@NoArgsConstructor
+@Setter
+@Getter
 @Entity
 @Table(name = "computer")
 public class Computer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
+
+    @OneToOne(mappedBy = "computer", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private ComputerStore computerStore;
 
     @Column(name = "brand")
     private String brand;
+
+    @Column(name = "serial_number")
+    private String serialNumber;
 
     @Column(name = "version")
     private String version;
@@ -21,47 +37,4 @@ public class Computer {
 
     @Column(name = "price")
     private double price;
-
-    public Computer() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-
-    public String getVersion() {
-        return version;
-    }
-
-    public void setVersion(String version) {
-        this.version = version;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
 }

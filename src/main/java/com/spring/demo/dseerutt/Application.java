@@ -18,7 +18,6 @@ public class Application implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments arg0) throws Exception {
-        LOGGER.info("Starting the webservices");
     }
 
 }

@@ -1,38 +1,37 @@
 package com.spring.demo.dseerutt.model.object;
 
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.sql.Date;
 
 
+@ToString
+@NoArgsConstructor
+@Setter
+@Getter
+@Entity
+@Table(name = "computerstore")
 public class ComputerStore {
 
+    @Id
+    @Column(name = "computer_id")
+    private int id;
+
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "computer_id")
     private Computer computer;
-    private String description;
+
+    @Column(name = "lastProvisionDate")
     private Date lastProvisionDate;
 
-    public ComputerStore() {
-    }
+    @Column(name = "enabled")
+    private boolean enabled;
 
-    public Computer getComputer() {
-        return computer;
-    }
-
-    public void setComputer(Computer computer) {
-        this.computer = computer;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Date getLastProvisionDate() {
-        return lastProvisionDate;
-    }
-
-    public void setLastProvisionDate(Date lastProvisionDate) {
-        this.lastProvisionDate = lastProvisionDate;
-    }
+    @Column(name = "stock")
+    private int stock;
 }

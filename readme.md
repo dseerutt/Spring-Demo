@@ -9,12 +9,11 @@ This is a computer buying app:
 ## Webservices endpoints
 
 1. GET / -> Get index page
-2. GET /client/stock -> Gets the available computers and their description
-4. POST /client/computer/{id} -> Buys the computer
-5. GET /provider/stock -> Gets the available computer store stock
-5. GET /provider/stock/{id} -> Gets the available computer store stock from the selected type
-6. POST /provider/provision -> Provision X new computer to the store from any type
-7. POST /provider/provision -> Deprovision X new computer from any type
+2. GET /client/computer -> Gets the available computers and their description
+4. POST /client/sale/{id} -> Buys the computer
+5. GET /provider/computer -> Gets the available computer, their description and the stock
+6. POST /provider/computer/provision -> Provision X new computer to the store from any type
+7. POST /provider/computer/deprovision -> Deprovision X new computer from any type
 
 ## Data structures
 
