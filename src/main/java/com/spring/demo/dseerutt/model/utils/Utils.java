@@ -12,7 +12,7 @@ import java.util.Locale;
 
 public class Utils {
     private static final Logger LOGGER = LogManager.getLogger(SaleServiceImpl.class);
-    public static SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat("dd-MM-YYYY", Locale.FRENCH);
+    public static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat("dd-MM-yyyy", Locale.FRENCH);
 
 
     public static Date parseDate(String date) {

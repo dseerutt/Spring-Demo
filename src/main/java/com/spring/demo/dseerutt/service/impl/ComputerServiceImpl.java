@@ -25,8 +25,8 @@ import java.util.stream.Collectors;
 @Service
 public class ComputerServiceImpl implements ComputerService {
     private static final Logger LOGGER = LogManager.getLogger(ComputerServiceImpl.class);
-    private ComputerDtoMapper computerMapper = Mappers.getMapper(ComputerDtoMapper.class);
-    private ProvisionDtoMapper provisionMapper = Mappers.getMapper(ProvisionDtoMapper.class);
+    private final ComputerDtoMapper computerMapper = Mappers.getMapper(ComputerDtoMapper.class);
+    private final ProvisionDtoMapper provisionMapper = Mappers.getMapper(ProvisionDtoMapper.class);
 
     @Autowired
     private ComputerRepository computerRepository;
@@ -46,7 +46,9 @@ public class ComputerServiceImpl implements ComputerService {
 
     @Override
     public List<ComputerDto> getAllComputers() {
-        return computerRepository.findAll().stream().map(computer -> computerMapper.computerToComputerDto(computer)).collect(Collectors.toList());
+        return computerRepository.findAll().stream()
+                .map(computerMapper::computerToComputerDto)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -86,10 +88,5 @@ public class ComputerServiceImpl implements ComputerService {
         computerStore.setLastProvisionDate(new Date(System.currentTimeMillis()));
         Computer savedElement = computerRepository.save(computer);
         return provisionMapper.computerToProvisionDto(savedElement);
-    }
-
-    @Override
-    public void deleteComputer(int id) {
-        computerRepository.deleteById(id);
     }
 }

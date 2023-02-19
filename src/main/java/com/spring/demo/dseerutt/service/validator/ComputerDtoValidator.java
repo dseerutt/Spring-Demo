@@ -21,22 +21,18 @@ public class ComputerDtoValidator {
 
     public void validate(ComputerDto computerDto) {
         String description = computerDto.getDescription();
-        if (StringUtils.isNotBlank(description) && description.length() >= 255) {
+        if (StringUtils.isNotBlank(description) && description.length() >= 255)
             throw new ValidationException("Description is limited to 255 characters");
-        }
         computerDto.setPrice(Math.round(computerDto.getPrice() * 100) / 100);
-        if (computerDto.getStock() != 0) {
+        if (computerDto.getStock() != 0)
             throw new ValidationException("Stock cannot be updated using this WS");
-        }
-        if (computerDto.getLastProvisionDate() != null) {
+        if (computerDto.getLastProvisionDate() != null)
             throw new ValidationException("Last Provision Date cannot be updated");
-        }
     }
 
     public void validatePost(ComputerDto computerDto) {
-        if (computerDto.getId() != 0) {
+        if (computerDto.getId() != 0)
             throw new ValidationException("Id cannot be set when using POST");
-        }
         if (computerRepository.existsByBrandAndVersion(computerDto.getBrand(), computerDto.getVersion())) {
             String message = "Computer with brand " + computerDto.getBrand() + " and version " + computerDto.getVersion() + " already exists";
             LOGGER.error(message);
@@ -46,9 +42,8 @@ public class ComputerDtoValidator {
     }
 
     public Computer validatePut(ComputerDto computerDto) {
-        if (computerDto.getId() == 0) {
+        if (computerDto.getId() == 0)
             throw new ValidationException("Computer Id has to be related to an existing computer when using POST");
-        }
         validate(computerDto);
 
         return computerRepository.findById(computerDto.getId())

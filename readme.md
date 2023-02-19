@@ -43,3 +43,7 @@ Sale:
 - Add the store concept (is not available at that store)
 - Add the money concept
 - Add a complaint webservice
+
+## TODO
+
+Tests Hibernate SQL Hibernate JPQL DSL Autorisation roles """

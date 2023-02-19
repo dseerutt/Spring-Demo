@@ -41,9 +41,8 @@ public class ProviderDtoValidator {
 
     public Computer validateDeprovision(ProvisionDto provisionDto) {
         Computer computer = validate(provisionDto);
-        if (computer.getComputerStore().getStock() < provisionDto.getQuantity()) {
+        if (computer.getComputerStore().getStock() < provisionDto.getQuantity())
             throw new EmptyStoreException("Cannot deprovision computer " + computer.getId() + ", there is not enough stock");
-        }
         return computer;
     }
 }

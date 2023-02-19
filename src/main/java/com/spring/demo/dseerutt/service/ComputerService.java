@@ -18,6 +18,4 @@ public interface ComputerService {
     ProvisionDto provisionComputer(ProvisionDto computer);
 
     ProvisionDto deprovisionComputer(ProvisionDto computer);
-
-    void deleteComputer(int id);
 }

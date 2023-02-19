@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -31,9 +32,9 @@ public class ClientSaleController {
 
     @GetMapping(value = StringUtils.EMPTY, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<List<SaleDto>> getAllSales() {
+    public ResponseEntity<List<SaleDto>> getAllSales(Pageable pageable) {
         LOGGER.info("Client Sale GET WS was called");
-        return new ResponseEntity<>(saleService.getAllSales(), HttpStatus.OK);
+        return new ResponseEntity<>(saleService.getAllSales(pageable), HttpStatus.OK);
     }
 
     @GetMapping(value = "/{saleId}", produces = MediaType.APPLICATION_JSON_VALUE)

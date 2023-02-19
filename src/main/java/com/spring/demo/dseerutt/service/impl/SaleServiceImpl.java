@@ -8,7 +8,6 @@ import com.spring.demo.dseerutt.model.object.Computer;
 import com.spring.demo.dseerutt.model.object.ComputerStore;
 import com.spring.demo.dseerutt.model.object.Sale;
 import com.spring.demo.dseerutt.model.utils.Utils;
-import com.spring.demo.dseerutt.repository.ComputerRepository;
 import com.spring.demo.dseerutt.repository.SaleRepository;
 import com.spring.demo.dseerutt.service.SaleService;
 import com.spring.demo.dseerutt.service.validator.SaleDtoValidator;
@@ -17,6 +16,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,9 +30,7 @@ public class SaleServiceImpl implements SaleService {
     private SaleDtoValidator saleDtoValidator;
     @Autowired
     private SaleRepository saleRepository;
-    @Autowired
-    private ComputerRepository computerRepository;
-    private SaleDtoMapper mapper = Mappers.getMapper(SaleDtoMapper.class);
+    private final SaleDtoMapper mapper = Mappers.getMapper(SaleDtoMapper.class);
 
     @Override
     public SaleDto getSale(int id) {
@@ -45,8 +43,8 @@ public class SaleServiceImpl implements SaleService {
     }
 
     @Override
-    public List<SaleDto> getAllSales() {
-        return saleRepository.findAll().stream().map(sale -> mapper.saleToSaleDto(sale)).collect(Collectors.toList());
+    public List<SaleDto> getAllSales(Pageable pageable) {
+        return saleRepository.findAll(pageable).stream().map(mapper::saleToSaleDto).collect(Collectors.toList());
     }
 
     @Override

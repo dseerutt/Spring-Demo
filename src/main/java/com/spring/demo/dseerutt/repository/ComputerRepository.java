@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.Optional;
 
-public interface ComputerRepository extends JpaRepository<Computer, String> {
+public interface ComputerRepository extends JpaRepository<Computer, Integer> {
 
     Optional<Computer> findById(int id);
 
