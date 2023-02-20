@@ -47,3 +47,11 @@ Sale:
 ## TODO
 
 Tests Hibernate SQL Hibernate JPQL DSL Autorisation roles """
+
+## How to setup the mysql database for Windows
+
+- Download Mysql, make sure Mysql service will be launched at startup
+- If not started, start mysql by lauching mysqld.exe in Mysql installation folder
+- If mysql is still not reachable, execute the windows command services.msc, look for mysql, start the service, and make
+  sure it will be launched at startup
+- For Dbeaver, Edit Connection, go to Driver Settings, in Driver Properties, set allowPublicKeyRetrieval to True
