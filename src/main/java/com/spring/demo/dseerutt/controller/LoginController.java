@@ -18,7 +18,7 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
-    @GetMapping(value = "/{username}", produces = MediaType.TEXT_HTML_VALUE)
+    @PostMapping(value = "/{username}", produces = MediaType.TEXT_HTML_VALUE)
     @ResponseBody
     public ResponseEntity<String> getIndex(@PathVariable @NonNull String username) {
         LOGGER.info("Index GET WS was called");
