@@ -1,6 +1,7 @@
 package com.spring.demo.dseerutt.service.impl;
 
 import com.spring.demo.dseerutt.dto.item.client.ComputerDto;
+import com.spring.demo.dseerutt.dto.item.client.ComputerStatusDto;
 import com.spring.demo.dseerutt.dto.item.client.ProvisionDto;
 import com.spring.demo.dseerutt.dto.mapper.ComputerDtoMapper;
 import com.spring.demo.dseerutt.dto.mapper.ProvisionDtoMapper;
@@ -88,5 +89,10 @@ public class ComputerServiceImpl implements ComputerService {
         computerStore.setLastProvisionDate(new Date(System.currentTimeMillis()));
         Computer savedElement = computerRepository.save(computer);
         return provisionMapper.computerToProvisionDto(savedElement);
+    }
+
+    @Override
+    public void updateComputerStatus(ComputerStatusDto computerStatusDto, int id) {
+        computerRepository.updateComputerStatus(id, computerStatusDto.isEnabled());
     }
 }

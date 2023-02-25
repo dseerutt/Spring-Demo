@@ -1,6 +1,7 @@
 package com.spring.demo.dseerutt.controller.provider;
 
 import com.spring.demo.dseerutt.dto.item.client.ComputerDto;
+import com.spring.demo.dseerutt.dto.item.client.ComputerStatusDto;
 import com.spring.demo.dseerutt.dto.item.client.ProvisionDto;
 import com.spring.demo.dseerutt.service.ComputerService;
 import org.apache.commons.lang3.StringUtils;
@@ -47,6 +48,14 @@ public class ProviderComputerController {
     public ResponseEntity<ProvisionDto> deprovisionComputer(@RequestBody @NonNull ProvisionDto provisionDto) {
         LOGGER.info("Provider Computer deprovision POST WS was called");
         return new ResponseEntity<>(computerService.deprovisionComputer(provisionDto), HttpStatus.OK);
+    }
+
+    @PatchMapping(value = "/{computerId}/status", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<Void> updateComputerStatus(@RequestBody ComputerStatusDto computerStatusDto, @PathVariable @NonNull int computerId) {
+        LOGGER.info("Client Computer Status PUT WS was called");
+        computerService.updateComputerStatus(computerStatusDto, computerId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     //Computer deletion is not available
