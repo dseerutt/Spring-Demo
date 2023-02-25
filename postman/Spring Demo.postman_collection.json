@@ -7,22 +7,350 @@
 	},
 	"item": [
 		{
-			"name": "HealthCheck",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{hostname}}:{{port}}/health",
-					"host": [
-						"{{hostname}}"
-					],
-					"port": "{{port}}",
-					"path": [
-						"health"
+			"name": "Client",
+			"item": [
+				{
+					"name": "Computer",
+					"item": [
+						{
+							"name": "Computer",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{hostname}}:{{port}}/client/computer",
+									"host": [
+										"{{hostname}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"client",
+										"computer"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Computer Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{hostname}}:{{port}}/client/computer/{{computerId}}",
+									"host": [
+										"{{hostname}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"client",
+										"computer",
+										"{{computerId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Sale",
+					"item": [
+						{
+							"name": "Sale",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"clientName\": \"Ali Gator\",\r\n    \"salesman\": \"Charles Attan\",\r\n    \"computerBrand\": \"Windows\",\r\n    \"computerVersion\": \"Windows 11\",\r\n    \"quantity\": \"1\",\r\n    \"saleDate\": \"25-06-2008\"\r\n}"
+								},
+								"url": {
+									"raw": "{{hostname}}:{{port}}/client/sale",
+									"host": [
+										"{{hostname}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"client",
+										"sale"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Sale",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{hostname}}:{{port}}/client/sale?page=0",
+									"host": [
+										"{{hostname}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"client",
+										"sale"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Sale id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{hostname}}:{{port}}/client/sale/{{saleId}}",
+									"host": [
+										"{{hostname}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"client",
+										"sale",
+										"{{saleId}}"
+									]
+								}
+							},
+							"response": []
+						}
 					]
 				}
-			},
-			"response": []
+			]
+		},
+		{
+			"name": "Provider",
+			"item": [
+				{
+					"name": "Computer",
+					"item": [
+						{
+							"name": "Provision",
+							"item": [
+								{
+									"name": "Provision Computer",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"id\": 2,\r\n    \"quantity\": 4\r\n}"
+										},
+										"url": {
+											"raw": "{{hostname}}:{{port}}/provider/computer/provision",
+											"host": [
+												"{{hostname}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"provider",
+												"computer",
+												"provision"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Deprovision Computer",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"id\": 2,\r\n    \"quantity\": 4\r\n}"
+										},
+										"url": {
+											"raw": "{{hostname}}:{{port}}/provider/computer/deprovision",
+											"host": [
+												"{{hostname}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"provider",
+												"computer",
+												"deprovision"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Computer",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"brand\": \"Arc8 linux\",\r\n    \"version\": \"Version 40\",\r\n    \"description\": \"Added on test\",\r\n    \"price\": 29.99\r\n}"
+								},
+								"url": {
+									"raw": "{{hostname}}:{{port}}/provider/computer",
+									"host": [
+										"{{hostname}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"provider",
+										"computer"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Computer Id",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"6\",\r\n    \"brand\": \"Arc8 linux\",\r\n    \"version\": \"Version 41\",\r\n    \"description\": \"Added on test\",\r\n    \"price\": 29.90\r\n}"
+								},
+								"url": {
+									"raw": "{{hostname}}:{{port}}/provider/computer",
+									"host": [
+										"{{hostname}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"provider",
+										"computer"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Computer Status",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"enabled\": false\r\n}"
+								},
+								"url": {
+									"raw": "{{hostname}}:{{port}}/provider/computer/{{computerId}}/status",
+									"host": [
+										"{{hostname}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"provider",
+										"computer",
+										"{{computerId}}",
+										"status"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Sale",
+					"item": [
+						{
+							"name": "Sale id",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"3\",\r\n    \"clientName\": \"Ali Gator\",\r\n    \"salesman\": \"Charles Attan\",\r\n    \"computerBrand\": \"Windows\",\r\n    \"computerVersion\": \"Windows 11\",\r\n    \"quantity\": \"2\",\r\n    \"saleDate\": \"25-26-2008\"\r\n}"
+								},
+								"url": {
+									"raw": "{{hostname}}:{{port}}/provider/sale",
+									"host": [
+										"{{hostname}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"provider",
+										"sale"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Sale id",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{hostname}}:{{port}}/provider/sale/{{saleId}}",
+									"host": [
+										"{{hostname}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"provider",
+										"sale",
+										"{{saleId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
 		},
 		{
 			"name": "Index",
@@ -30,14 +358,47 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{hostname}}:{{port}}",
+					"raw": "{{hostname}}:{{port}}/",
 					"host": [
 						"{{hostname}}"
 					],
-					"port": "{{port}}"
+					"port": "{{port}}",
+					"path": [
+						""
+					]
 				}
 			},
 			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "computerId",
+			"value": "3"
+		},
+		{
+			"key": "saleId",
+			"value": "3"
 		}
 	]
 }
