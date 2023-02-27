@@ -75,4 +75,14 @@ public class SaleDtoValidator {
                 }));
         return saleComputerDto;
     }
+
+    /**
+     * Return true if object exists
+     *
+     * @param saleId the id of the sale
+     * @return
+     */
+    public boolean validateDelete(int saleId) {
+        return saleRepository.findById(saleId).isPresent();
+    }
 }

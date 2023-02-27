@@ -58,10 +58,22 @@ public class SaleServiceImpl implements SaleService {
         return mapper.saleToSaleDto(saleRepository.save(sale));
     }
 
+    /**
+     * deleteSale
+     * delete if present, no error if not
+     * sale id
+     *
+     * @param id
+     */
     @Transactional
     @Override
     public void deleteSale(int id) {
-        saleRepository.deleteById(id);
+        if (saleDtoValidator.validateDelete(id)) {
+            LOGGER.info("Id " + id + " was found for sale deletion");
+            saleRepository.deleteById(id);
+        } else {
+            LOGGER.info("Nothing to delete");
+        }
     }
 
     public SaleDto updateSale(SaleDto saleDto) {
