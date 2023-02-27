@@ -3,7 +3,7 @@ CREATE TABLE Computer (
   brand VARCHAR(50) NOT NULL,
   version VARCHAR(50) NOT NULL,
   description VARCHAR(255),
-  serial_number VARCHAR(50) NOT NULL,
+  serial_number VARCHAR(36) NOT NULL,
   price DOUBLE NOT NULL,
   UNIQUE(brand, version)
 );
