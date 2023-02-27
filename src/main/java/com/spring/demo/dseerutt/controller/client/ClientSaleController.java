@@ -6,14 +6,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping(value = {"/client/sale"})
@@ -28,13 +25,6 @@ public class ClientSaleController {
     public ResponseEntity<SaleDto> addSale(@RequestBody @NonNull SaleDto saleDto) {
         LOGGER.info("Sale POST WS was called");
         return new ResponseEntity<>(saleService.addSale(saleDto), HttpStatus.CREATED);
-    }
-
-    @GetMapping(value = StringUtils.EMPTY, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public ResponseEntity<List<SaleDto>> getAllSales(Pageable pageable) {
-        LOGGER.info("Client Sale GET WS was called");
-        return new ResponseEntity<>(saleService.getAllSales(pageable), HttpStatus.OK);
     }
 
     @GetMapping(value = "/{saleId}", produces = MediaType.APPLICATION_JSON_VALUE)

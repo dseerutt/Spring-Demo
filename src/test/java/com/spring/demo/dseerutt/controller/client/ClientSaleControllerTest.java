@@ -14,9 +14,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -34,7 +31,6 @@ class ClientSaleControllerTest {
     @MockBean
     private SaleService saleService;
     private SaleDto saleDto;
-    private List<SaleDto> saleDtoList;
 
     private static final String SALE_JSON_INPUT = """
             {
@@ -56,7 +52,6 @@ class ClientSaleControllerTest {
         saleDto.setComputerBrand("Windows");
         saleDto.setQuantity(1);
         saleDto.setSaleDate("25-06-2008");
-        saleDtoList = new ArrayList<>();
     }
 
     /**
@@ -163,38 +158,5 @@ class ClientSaleControllerTest {
 
         mvc.perform(get("/client/sale/" + saleId).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
-    }
-
-    /**
-     * getAllSales test when there is a sale found - the sale json is retrieved
-     *
-     * @throws Exception never happens
-     */
-    @Test
-    void getAllComputersNotEmptyTest() throws Exception {
-        saleDtoList.add(saleDto);
-        when(saleService.getAllSales(any())).thenReturn(saleDtoList);
-
-        mvc.perform(get("/client/sale").contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content()
-                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(content().json("[" + SALE_JSON_INPUT + "]"));
-    }
-
-    /**
-     * getAllSales test when no result is found - empty list is returned
-     *
-     * @throws Exception never happens
-     */
-    @Test
-    void getAllSalesEmptyTest() throws Exception {
-        when(saleService.getAllSales(any())).thenReturn(saleDtoList);
-
-        mvc.perform(get("/client/sale").contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content()
-                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(content().json("[]"));
     }
 }

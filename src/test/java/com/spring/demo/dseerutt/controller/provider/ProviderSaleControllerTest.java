@@ -11,10 +11,13 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(ProviderSaleController.class)
@@ -28,22 +31,31 @@ class ProviderSaleControllerTest {
     private SaleService saleService;
 
     private SaleDto saleDto;
+    private List<SaleDto> saleDtoList;
 
     private static final String SALE_JSON = """
             {
-                "id": "3",
+                "id": 3,
                 "clientName": "Ali Gator",
                 "salesman": "Charles Attan",
                 "computerBrand": "Windows",
                 "computerVersion": "Windows 11",
-                "saleDate": "25-26-2008"
+                "saleDate": "25-06-2008"
             }
             """;
 
 
     @BeforeEach
     void setup() {
-
+        saleDtoList = new ArrayList<>();
+        saleDto = new SaleDto();
+        saleDto.setId(3);
+        saleDto.setClientName("Ali Gator");
+        saleDto.setSalesman("Charles Attan");
+        saleDto.setComputerVersion("Windows 11");
+        saleDto.setComputerBrand("Windows");
+        saleDto.setQuantity(1);
+        saleDto.setSaleDate("25-06-2008");
     }
 
     /**
@@ -75,5 +87,38 @@ class ProviderSaleControllerTest {
                         .content(SALE_JSON)
                         .accept("application/json"))
                 .andExpect(status().isNoContent());
+    }
+
+    /**
+     * getAllSales test when there is a sale found - the sale json is retrieved
+     *
+     * @throws Exception never happens
+     */
+    @Test
+    void getAllComputersNotEmptyTest() throws Exception {
+        saleDtoList.add(saleDto);
+        when(saleService.getAllSales(any())).thenReturn(saleDtoList);
+
+        mvc.perform(get("/provider/sale").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content()
+                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(content().json("[" + SALE_JSON + "]"));
+    }
+
+    /**
+     * getAllSales test when no result is found - empty list is returned
+     *
+     * @throws Exception never happens
+     */
+    @Test
+    void getAllSalesEmptyTest() throws Exception {
+        when(saleService.getAllSales(any())).thenReturn(saleDtoList);
+
+        mvc.perform(get("/provider/sale").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content()
+                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(content().json("[]"));
     }
 }
