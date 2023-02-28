@@ -2,6 +2,7 @@ package com.spring.demo.dseerutt.service;
 
 import com.spring.demo.dseerutt.dto.item.client.ComputerDto;
 import com.spring.demo.dseerutt.dto.item.client.ComputerStatusDto;
+import com.spring.demo.dseerutt.dto.item.client.LightComputerDto;
 import com.spring.demo.dseerutt.dto.item.client.ProvisionDto;
 
 import java.util.List;
@@ -12,9 +13,9 @@ public interface ComputerService {
 
     List<ComputerDto> getAllComputers();
 
-    ComputerDto addComputer(ComputerDto computer);
+    ComputerDto addComputer(LightComputerDto lightComputerDto);
 
-    ComputerDto updateComputer(ComputerDto computer);
+    ComputerDto updateComputer(LightComputerDto lightComputerDto);
 
     ProvisionDto provisionComputer(ProvisionDto computer);
 

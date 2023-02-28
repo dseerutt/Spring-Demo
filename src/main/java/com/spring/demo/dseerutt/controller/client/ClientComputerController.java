@@ -26,8 +26,7 @@ public class ClientComputerController {
     @ResponseBody
     public ResponseEntity<ComputerDto> getComputer(@PathVariable @NonNull int computerId) {
         LOGGER.info("Client Computer GET WS was called");
-        ComputerDto computerDto = computerService.getComputer(computerId);
-        return new ResponseEntity<>(computerDto, HttpStatus.OK);
+        return new ResponseEntity<>(computerService.getComputer(computerId), HttpStatus.OK);
     }
 
     @GetMapping(value = StringUtils.EMPTY, produces = MediaType.APPLICATION_JSON_VALUE)

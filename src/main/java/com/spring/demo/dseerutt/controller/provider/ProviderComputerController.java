@@ -2,6 +2,7 @@ package com.spring.demo.dseerutt.controller.provider;
 
 import com.spring.demo.dseerutt.dto.item.client.ComputerDto;
 import com.spring.demo.dseerutt.dto.item.client.ComputerStatusDto;
+import com.spring.demo.dseerutt.dto.item.client.LightComputerDto;
 import com.spring.demo.dseerutt.dto.item.client.ProvisionDto;
 import com.spring.demo.dseerutt.service.ComputerService;
 import org.apache.commons.lang3.StringUtils;
@@ -24,16 +25,16 @@ public class ProviderComputerController {
 
     @PostMapping(value = StringUtils.EMPTY, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<ComputerDto> addComputer(@RequestBody @NonNull ComputerDto computerDto) {
+    public ResponseEntity<ComputerDto> addComputer(@RequestBody @NonNull LightComputerDto lightComputerDto) {
         LOGGER.info("Provider Computer POST WS was called");
-        return new ResponseEntity<>(computerService.addComputer(computerDto), HttpStatus.CREATED);
+        return new ResponseEntity<>(computerService.addComputer(lightComputerDto), HttpStatus.CREATED);
     }
 
     @PutMapping(value = StringUtils.EMPTY, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<ComputerDto> updateComputer(@RequestBody @NonNull ComputerDto computerDto) {
+    public ResponseEntity<ComputerDto> updateComputer(@RequestBody @NonNull LightComputerDto lightComputerDto) {
         LOGGER.info("Provider Computer PUT WS was called");
-        return new ResponseEntity<>(computerService.updateComputer(computerDto), HttpStatus.OK);
+        return new ResponseEntity<>(computerService.updateComputer(lightComputerDto), HttpStatus.OK);
     }
 
     @PostMapping(value = "/provision", produces = MediaType.APPLICATION_JSON_VALUE)

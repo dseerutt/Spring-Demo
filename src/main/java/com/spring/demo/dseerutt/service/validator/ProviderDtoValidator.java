@@ -28,7 +28,7 @@ public class ProviderDtoValidator {
         } else {
             return computerRepository.findByBrandAndVersion(provisionDto.getBrand(), provisionDto.getVersion())
                     .orElseThrow(() -> {
-                        String message = "Computer with brand " + provisionDto.getBrand() + " and version " + provisionDto.getVersion() + " already exists";
+                        String message = "Computer with brand " + provisionDto.getBrand() + " and version " + provisionDto.getVersion() + " was not found";
                         LOGGER.error(message);
                         return new ComputerNotFoundException(message);
                     });
@@ -40,7 +40,7 @@ public class ProviderDtoValidator {
     }
 
     public Computer validateDeprovision(ProvisionDto provisionDto) {
-        Computer computer = validate(provisionDto);
+        var computer = validate(provisionDto);
         if (computer.getComputerStore().getStock() < provisionDto.getQuantity())
             throw new EmptyStoreException("Cannot deprovision computer " + computer.getId() + ", there is not enough stock");
         return computer;

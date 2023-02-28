@@ -2,12 +2,12 @@ package com.spring.demo.dseerutt.service.impl;
 
 import com.spring.demo.dseerutt.dto.item.client.ComputerDto;
 import com.spring.demo.dseerutt.dto.item.client.ComputerStatusDto;
+import com.spring.demo.dseerutt.dto.item.client.LightComputerDto;
 import com.spring.demo.dseerutt.dto.item.client.ProvisionDto;
 import com.spring.demo.dseerutt.dto.mapper.ComputerDtoMapper;
 import com.spring.demo.dseerutt.dto.mapper.ProvisionDtoMapper;
 import com.spring.demo.dseerutt.model.exception.computer.ComputerNotFoundException;
 import com.spring.demo.dseerutt.model.object.Computer;
-import com.spring.demo.dseerutt.model.object.ComputerStore;
 import com.spring.demo.dseerutt.repository.ComputerRepository;
 import com.spring.demo.dseerutt.service.ComputerService;
 import com.spring.demo.dseerutt.service.validator.ComputerDtoValidator;
@@ -53,28 +53,28 @@ public class ComputerServiceImpl implements ComputerService {
     }
 
     @Override
-    public ComputerDto addComputer(ComputerDto computerDto) {
-        computerDtoValidator.validatePost(computerDto);
-        Computer computer = computerMapper.computerDtoToComputer(computerDto);
+    public ComputerDto addComputer(LightComputerDto lightComputerDto) {
+        computerDtoValidator.validatePost(lightComputerDto);
+        var computer = computerMapper.computerDtoToComputer(lightComputerDto);
         computer.setSerialNumber(UUID.randomUUID().toString());
         return computerMapper.computerToComputerDto(computerRepository.save(computer));
     }
 
     @Override
-    public ComputerDto updateComputer(ComputerDto computerDto) {
-        Computer element = computerDtoValidator.validatePut(computerDto);
-        element.setBrand(computerDto.getBrand());
-        element.setDescription(computerDto.getDescription());
-        element.setVersion(computerDto.getVersion());
-        element.setPrice(computerDto.getPrice());
-        Computer savedElement = computerRepository.save(element);
+    public ComputerDto updateComputer(LightComputerDto lightComputerDto) {
+        var element = computerDtoValidator.validatePut(lightComputerDto);
+        element.setBrand(lightComputerDto.getBrand());
+        element.setDescription(lightComputerDto.getDescription());
+        element.setVersion(lightComputerDto.getVersion());
+        element.setPrice(lightComputerDto.getPrice());
+        var savedElement = computerRepository.save(element);
         return computerMapper.computerToComputerDto(savedElement);
     }
 
     @Override
     public ProvisionDto provisionComputer(ProvisionDto provisionDto) {
-        Computer computer = providerDtoValidator.validateProvision(provisionDto);
-        ComputerStore computerStore = computer.getComputerStore();
+        var computer = providerDtoValidator.validateProvision(provisionDto);
+        var computerStore = computer.getComputerStore();
         computerStore.setStock(computerStore.getStock() + provisionDto.getQuantity());
         computerStore.setLastProvisionDate(new Date(System.currentTimeMillis()));
         Computer savedElement = computerRepository.save(computer);
@@ -83,11 +83,11 @@ public class ComputerServiceImpl implements ComputerService {
 
     @Override
     public ProvisionDto deprovisionComputer(ProvisionDto provisionDto) {
-        Computer computer = providerDtoValidator.validateDeprovision(provisionDto);
-        ComputerStore computerStore = computer.getComputerStore();
+        var computer = providerDtoValidator.validateDeprovision(provisionDto);
+        var computerStore = computer.getComputerStore();
         computerStore.setStock(computerStore.getStock() - provisionDto.getQuantity());
         computerStore.setLastProvisionDate(new Date(System.currentTimeMillis()));
-        Computer savedElement = computerRepository.save(computer);
+        var savedElement = computerRepository.save(computer);
         return provisionMapper.computerToProvisionDto(savedElement);
     }
 

@@ -16,6 +16,11 @@ public class Utils {
 
 
     public static Date parseDate(String date) {
+        if (date == null) {
+            String message = "Date is null, cannot convert it";
+            LOGGER.error(message);
+            throw new DateParsingException(message);
+        }
         try {
             return DATE_FORMATTER.parse(date);
         } catch (ParseException e) {

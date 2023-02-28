@@ -4,9 +4,6 @@ import com.spring.demo.dseerutt.dto.item.client.SaleComputerDto;
 import com.spring.demo.dseerutt.dto.item.client.SaleDto;
 import com.spring.demo.dseerutt.dto.mapper.SaleDtoMapper;
 import com.spring.demo.dseerutt.model.exception.computer.ComputerNotFoundException;
-import com.spring.demo.dseerutt.model.object.Computer;
-import com.spring.demo.dseerutt.model.object.ComputerStore;
-import com.spring.demo.dseerutt.model.object.Sale;
 import com.spring.demo.dseerutt.model.utils.Utils;
 import com.spring.demo.dseerutt.repository.SaleRepository;
 import com.spring.demo.dseerutt.service.SaleService;
@@ -49,11 +46,11 @@ public class SaleServiceImpl implements SaleService {
 
     @Override
     public SaleDto addSale(SaleDto saleDto) {
-        SaleComputerDto saleComputerDto = saleDtoValidator.validatePost(saleDto);
-        Computer computer = saleComputerDto.getComputer();
-        ComputerStore computerStore = computer.getComputerStore();
+        var saleComputerDto = saleDtoValidator.validatePost(saleDto);
+        var computer = saleComputerDto.getComputer();
+        var computerStore = computer.getComputerStore();
         computerStore.setStock(computerStore.getStock() - 1);
-        Sale sale = mapper.saleDtoToSale(saleDto);
+        var sale = mapper.saleDtoToSale(saleDto);
         sale.setComputer(computer);
         return mapper.saleToSaleDto(saleRepository.save(sale));
     }
@@ -79,13 +76,13 @@ public class SaleServiceImpl implements SaleService {
     public SaleDto updateSale(SaleDto saleDto) {
         // Do not update stock for modification of a sale
         SaleComputerDto saleComputerDto = saleDtoValidator.validatePut(saleDto);
-        Sale sale = saleComputerDto.getSale();
+        var sale = saleComputerDto.getSale();
         sale.setSaleDate(Utils.parseDate(saleDto.getSaleDate()));
         sale.setClientName(saleDto.getClientName());
         sale.setQuantity(saleDto.getQuantity());
         sale.setSalesman(saleDto.getSalesman());
         sale.setComputer(saleComputerDto.getComputer());
-        Sale savedElement = saleRepository.save(sale);
+        var savedElement = saleRepository.save(sale);
         return mapper.saleToSaleDto(savedElement);
     }
 }

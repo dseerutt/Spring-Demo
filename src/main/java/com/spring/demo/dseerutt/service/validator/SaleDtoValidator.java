@@ -5,9 +5,8 @@ import com.spring.demo.dseerutt.dto.item.client.SaleDto;
 import com.spring.demo.dseerutt.model.exception.SaleNotFoundException;
 import com.spring.demo.dseerutt.model.exception.computer.ComputerNotFoundException;
 import com.spring.demo.dseerutt.model.exception.computer.EmptyStoreException;
+import com.spring.demo.dseerutt.model.exception.server.DateParsingException;
 import com.spring.demo.dseerutt.model.exception.server.ValidationException;
-import com.spring.demo.dseerutt.model.object.Computer;
-import com.spring.demo.dseerutt.model.object.ComputerStore;
 import com.spring.demo.dseerutt.model.utils.Utils;
 import com.spring.demo.dseerutt.repository.ComputerRepository;
 import com.spring.demo.dseerutt.repository.SaleRepository;
@@ -26,7 +25,7 @@ public class SaleDtoValidator {
     @Autowired
     private SaleRepository saleRepository;
 
-    public void validate(SaleDto saleDto) {
+    protected void validate(SaleDto saleDto) {
         String clientName = saleDto.getClientName();
         if (StringUtils.isNotBlank(clientName) && clientName.length() >= 255)
             throw new ValidationException("Client name is limited to 255 characters");
@@ -35,7 +34,15 @@ public class SaleDtoValidator {
             throw new ValidationException("Salesman is limited to 50 characters");
         if (saleDto.getQuantity() <= 0)
             throw new ValidationException("Sale quantity cannot be 0 or negative");
-        Utils.parseDate(saleDto.getSaleDate());
+        if (StringUtils.isBlank(saleDto.getSaleDate()))
+            throw new ValidationException("Sale date cannot be empty");
+        try {
+            Utils.parseDate(saleDto.getSaleDate());
+        } catch (DateParsingException parseException) {
+            String message = "Failed to parse saleDate " + saleDto.getSaleDate();
+            LOGGER.error(message, parseException);
+            throw new ValidationException(message, parseException);
+        }
     }
 
     public SaleComputerDto validatePost(SaleDto saleDto) {
@@ -43,8 +50,8 @@ public class SaleDtoValidator {
             throw new ValidationException("Id cannot be set when using POST");
         validate(saleDto);
         SaleComputerDto saleComputerDto = initSaleComputerDto(saleDto);
-        Computer computer = saleComputerDto.getComputer();
-        ComputerStore computerStore = computer.getComputerStore();
+        var computer = saleComputerDto.getComputer();
+        var computerStore = computer.getComputerStore();
         if (computerStore.getStock() < 1)
             throw new EmptyStoreException("Not enough stock to buy computer with id " + computer.getId());
         return saleComputerDto;
@@ -64,7 +71,7 @@ public class SaleDtoValidator {
     public SaleComputerDto validatePut(SaleDto saleDto) {
         // Do not update stock for modification of a sale
         if (saleDto.getId() == 0)
-            throw new ValidationException("Computer Id has to be related to an existing computer when using POST");
+            throw new ValidationException("Sale Id cannot be 0");
         validate(saleDto);
         SaleComputerDto saleComputerDto = initSaleComputerDto(saleDto);
         saleComputerDto.setSale(saleRepository.findById(saleDto.getId())
