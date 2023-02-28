@@ -46,7 +46,8 @@ Sale:
 
 ## TODO
 
-Tests Hibernate SQL Hibernate JPQL DSL Autorisation roles """
+- More tests
+- I lost the game
 
 ## How to setup the mysql database for Windows
 
