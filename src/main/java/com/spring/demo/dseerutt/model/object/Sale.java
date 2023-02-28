@@ -1,13 +1,11 @@
 package com.spring.demo.dseerutt.model.object;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 
+@EqualsAndHashCode
 @ToString
 @NoArgsConstructor
 @Setter
@@ -30,7 +28,7 @@ public class Sale {
     private int quantity;
 
     @Column(name = "sale_date")
-    private Date saleDate;
+    private LocalDate saleDate;
 
     @Column(name = "salesman")
     private String salesman;

@@ -251,7 +251,7 @@ class SaleDtoValidatorTest {
         String computerBrand = "ComputerBrand";
         String computerVersion = "ComputerVersion";
         saleDto.setQuantity(2);
-        saleDto.setSaleDate("2023-08-09");
+        saleDto.setSaleDate("08-09-2023");
         saleDto.setComputerBrand(computerBrand);
         saleDto.setComputerVersion(computerVersion);
         when(computerRepository.findByBrandAndVersion(computerBrand, computerVersion)).thenReturn(Optional.empty());
@@ -273,7 +273,7 @@ class SaleDtoValidatorTest {
         String computerBrand = "ComputerBrand";
         String computerVersion = "Computer version";
         saleDto.setQuantity(2);
-        saleDto.setSaleDate("2023-08-09");
+        saleDto.setSaleDate("08-09-2023");
         saleDto.setComputerBrand(computerBrand);
         saleDto.setComputerVersion(computerVersion);
         computerStore.setStock(0);
@@ -294,7 +294,7 @@ class SaleDtoValidatorTest {
     @Test
     void validatePostOkTest() {
         saleDto.setQuantity(2);
-        saleDto.setSaleDate("2023-08-09");
+        saleDto.setSaleDate("08-09-2023");
         saleDto.setComputerBrand(COMPUTER_BRAND);
         saleDto.setComputerVersion(COMPUTER_VERSION);
         computerStore.setStock(DEFAULT_STOCK);
@@ -327,7 +327,7 @@ class SaleDtoValidatorTest {
         saleDto.setComputerBrand(COMPUTER_BRAND);
         saleDto.setComputerVersion(COMPUTER_VERSION);
         saleDto.setQuantity(2);
-        saleDto.setSaleDate("2023-08-09");
+        saleDto.setSaleDate("08-09-2023");
         when(computerRepository.findByBrandAndVersion(COMPUTER_BRAND, COMPUTER_VERSION)).thenReturn(Optional.of(computer));
         when(saleRepository.findById(saleDto.getId())).thenReturn(Optional.empty());
         SaleNotFoundException exception = assertThrows(
@@ -349,7 +349,7 @@ class SaleDtoValidatorTest {
         saleDto.setComputerBrand(COMPUTER_BRAND);
         saleDto.setComputerVersion(COMPUTER_VERSION);
         saleDto.setQuantity(2);
-        saleDto.setSaleDate("2023-08-09");
+        saleDto.setSaleDate("08-09-2023");
         saleComputerDto.setSale(sale);
         when(computerRepository.findByBrandAndVersion(COMPUTER_BRAND, COMPUTER_VERSION)).thenReturn(Optional.of(computer));
         when(saleRepository.findById(saleDto.getId())).thenReturn(Optional.of(sale));

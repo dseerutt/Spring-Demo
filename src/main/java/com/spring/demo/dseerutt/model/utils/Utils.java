@@ -5,25 +5,24 @@ import com.spring.demo.dseerutt.service.impl.SaleServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Utils {
     private static final Logger LOGGER = LogManager.getLogger(SaleServiceImpl.class);
-    public static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat("dd-MM-yyyy", Locale.FRENCH);
+    public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
 
-    public static Date parseDate(String date) {
+    public static LocalDate parseDate(String date) {
         if (date == null) {
             String message = "Date is null, cannot convert it";
             LOGGER.error(message);
             throw new DateParsingException(message);
         }
         try {
-            return DATE_FORMATTER.parse(date);
-        } catch (ParseException e) {
+            return LocalDate.parse(date, DATE_FORMATTER);
+        } catch (DateTimeParseException e) {
             String message = "Failed to parse date " + date;
             LOGGER.error(message, e);
             throw new DateParsingException(message);

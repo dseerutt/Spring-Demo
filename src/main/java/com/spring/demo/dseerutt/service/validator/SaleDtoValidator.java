@@ -49,7 +49,7 @@ public class SaleDtoValidator {
         if (saleDto.getId() != 0)
             throw new ValidationException("Id cannot be set when using POST");
         validate(saleDto);
-        SaleComputerDto saleComputerDto = initSaleComputerDto(saleDto);
+        var saleComputerDto = initSaleComputerDto(saleDto);
         var computer = saleComputerDto.getComputer();
         var computerStore = computer.getComputerStore();
         if (computerStore.getStock() < 1)
@@ -58,7 +58,7 @@ public class SaleDtoValidator {
     }
 
     private SaleComputerDto initSaleComputerDto(SaleDto saleDto) {
-        SaleComputerDto saleComputerDto = new SaleComputerDto();
+        var saleComputerDto = new SaleComputerDto();
         saleComputerDto.setComputer(computerRepository.findByBrandAndVersion(saleDto.getComputerBrand(), saleDto.getComputerVersion())
                 .orElseThrow(() -> {
                     String message = "Computer not found with brand " + saleDto.getComputerBrand() + " and version " + saleDto.getComputerVersion();
@@ -73,7 +73,7 @@ public class SaleDtoValidator {
         if (saleDto.getId() == 0)
             throw new ValidationException("Sale Id cannot be 0");
         validate(saleDto);
-        SaleComputerDto saleComputerDto = initSaleComputerDto(saleDto);
+        var saleComputerDto = initSaleComputerDto(saleDto);
         saleComputerDto.setSale(saleRepository.findById(saleDto.getId())
                 .orElseThrow(() -> {
                     String message = "Sale with id " + saleDto.getId() + " was not found";
