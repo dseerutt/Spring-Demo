@@ -1,13 +1,9 @@
 package com.spring.demo.dseerutt.model.exception.computer;
 
+import com.spring.demo.dseerutt.model.exception.GenericResponseStatusException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.web.server.ResponseStatusException;
 
-public class ComputerAlreadyExistsException extends ResponseStatusException {
-    public ComputerAlreadyExistsException(HttpStatusCode status, String reason) {
-        super(status, reason);
-    }
+public class ComputerAlreadyExistsException extends GenericResponseStatusException {
 
     public ComputerAlreadyExistsException(String reason) {
         super(HttpStatus.BAD_REQUEST, reason);

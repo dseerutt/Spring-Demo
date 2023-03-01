@@ -39,9 +39,7 @@ public class SaleDtoValidator {
         try {
             Utils.parseDate(saleDto.getSaleDate());
         } catch (DateParsingException parseException) {
-            String message = "Failed to parse saleDate " + saleDto.getSaleDate();
-            LOGGER.error(message, parseException);
-            throw new ValidationException(message, parseException);
+            throw new ValidationException("Failed to parse saleDate " + saleDto.getSaleDate(), parseException);
         }
     }
 
@@ -60,11 +58,7 @@ public class SaleDtoValidator {
     private SaleComputerDto initSaleComputerDto(SaleDto saleDto) {
         var saleComputerDto = new SaleComputerDto();
         saleComputerDto.setComputer(computerRepository.findByBrandAndVersion(saleDto.getComputerBrand(), saleDto.getComputerVersion())
-                .orElseThrow(() -> {
-                    String message = "Computer not found with brand " + saleDto.getComputerBrand() + " and version " + saleDto.getComputerVersion();
-                    LOGGER.error(message);
-                    return new ComputerNotFoundException(message);
-                }));
+                .orElseThrow(() -> new ComputerNotFoundException("Computer not found with brand " + saleDto.getComputerBrand() + " and version " + saleDto.getComputerVersion())));
         return saleComputerDto;
     }
 
@@ -75,11 +69,7 @@ public class SaleDtoValidator {
         validate(saleDto);
         var saleComputerDto = initSaleComputerDto(saleDto);
         saleComputerDto.setSale(saleRepository.findById(saleDto.getId())
-                .orElseThrow(() -> {
-                    String message = "Sale with id " + saleDto.getId() + " was not found";
-                    LOGGER.error(message);
-                    return new SaleNotFoundException(message);
-                }));
+                .orElseThrow(() -> new SaleNotFoundException("Sale with id " + saleDto.getId() + " was not found")));
         return saleComputerDto;
     }
 

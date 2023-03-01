@@ -38,11 +38,7 @@ public class ComputerServiceImpl implements ComputerService {
 
     @Override
     public ComputerDto getComputer(int id) {
-        return computerMapper.computerToComputerDto(computerRepository.findById(id).orElseThrow(() -> {
-            String message = "Computer not found with id " + id;
-            LOGGER.error(message);
-            return new ComputerNotFoundException(message);
-        }));
+        return computerMapper.computerToComputerDto(computerRepository.findById(id).orElseThrow(() -> new ComputerNotFoundException("Computer not found with id " + id)));
     }
 
     @Override

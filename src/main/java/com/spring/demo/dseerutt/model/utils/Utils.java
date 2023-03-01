@@ -17,20 +17,16 @@ public class Utils {
 
     public static LocalDate parseDate(String date) {
         if (date == null) {
-            String message = "Date is null, cannot convert it";
-            LOGGER.error(message);
-            throw new DateParsingException(message);
+            throw new DateParsingException("Date is null, cannot convert it");
         }
         try {
             return LocalDate.parse(date, DATE_FORMATTER);
         } catch (DateTimeParseException e) {
-            String message = "Failed to parse date " + date;
-            LOGGER.error(message, e);
-            throw new DateParsingException(message);
+            throw new DateParsingException("Failed to parse date " + date);
         }
     }
 
-    public static String getRandomUUIDString(){
+    public static String getRandomUUIDString() {
         return UUID.randomUUID().toString();
     }
 }

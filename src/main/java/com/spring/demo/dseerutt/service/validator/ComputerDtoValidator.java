@@ -7,14 +7,11 @@ import com.spring.demo.dseerutt.model.exception.server.ValidationException;
 import com.spring.demo.dseerutt.model.object.Computer;
 import com.spring.demo.dseerutt.repository.ComputerRepository;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ComputerDtoValidator {
-    private static final Logger LOGGER = LogManager.getLogger(ComputerDtoValidator.class);
 
     @Autowired
     private ComputerRepository computerRepository;
@@ -30,9 +27,7 @@ public class ComputerDtoValidator {
         if (lightComputerDto.getId() != 0)
             throw new ValidationException("Id cannot be set when using POST");
         if (computerRepository.existsByBrandAndVersion(lightComputerDto.getBrand(), lightComputerDto.getVersion())) {
-            String message = "Computer with brand " + lightComputerDto.getBrand() + " and version " + lightComputerDto.getVersion() + " already exists";
-            LOGGER.error(message);
-            throw new ComputerAlreadyExistsException(message);
+            throw new ComputerAlreadyExistsException("Computer with brand " + lightComputerDto.getBrand() + " and version " + lightComputerDto.getVersion() + " already exists");
         }
         validate(lightComputerDto);
     }
@@ -43,10 +38,6 @@ public class ComputerDtoValidator {
         validate(lightComputerDto);
 
         return computerRepository.findById(lightComputerDto.getId())
-                .orElseThrow(() -> {
-                    String message = "Computer with id " + lightComputerDto.getId() + " was not found";
-                    LOGGER.error(message);
-                    return new ComputerNotFoundException(message);
-                });
+                .orElseThrow(() -> new ComputerNotFoundException("Computer with id " + lightComputerDto.getId() + " was not found"));
     }
 }

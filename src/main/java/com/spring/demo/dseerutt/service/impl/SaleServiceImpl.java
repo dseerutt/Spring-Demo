@@ -32,11 +32,7 @@ public class SaleServiceImpl implements SaleService {
     @Override
     public SaleDto getSale(int id) {
         return mapper.saleToSaleDto(saleRepository.findById(id)
-                .orElseThrow(() -> {
-                    String message = "Sale not found with id " + id;
-                    LOGGER.error(message);
-                    return new SaleNotFoundException(message);
-                }));
+                .orElseThrow(() -> new SaleNotFoundException("Sale not found with id " + id)));
     }
 
     @Override
@@ -78,9 +74,8 @@ public class SaleServiceImpl implements SaleService {
         var saleComputerDto = saleDtoValidator.validatePut(saleDto);
         var sale = saleComputerDto.getSale();
         String date = saleDto.getSaleDate();
-        if (StringUtils.isNotBlank(date)) {
+        if (StringUtils.isNotBlank(date))
             sale.setSaleDate(Utils.parseDate(date));
-        }
         sale.setClientName(saleDto.getClientName());
         sale.setQuantity(saleDto.getQuantity());
         sale.setSalesman(saleDto.getSalesman());

@@ -20,18 +20,10 @@ public class ProviderDtoValidator {
     public Computer validate(ProvisionDto provisionDto) {
         if (provisionDto.getId() != 0) {
             return computerRepository.findById(provisionDto.getId())
-                    .orElseThrow(() -> {
-                        String message = "Computer with id " + provisionDto.getId() + " was not found";
-                        LOGGER.error(message);
-                        return new ComputerNotFoundException(message);
-                    });
+                    .orElseThrow(() -> new ComputerNotFoundException("Computer with id " + provisionDto.getId() + " was not found"));
         } else {
             return computerRepository.findByBrandAndVersion(provisionDto.getBrand(), provisionDto.getVersion())
-                    .orElseThrow(() -> {
-                        String message = "Computer with brand " + provisionDto.getBrand() + " and version " + provisionDto.getVersion() + " was not found";
-                        LOGGER.error(message);
-                        return new ComputerNotFoundException(message);
-                    });
+                    .orElseThrow(() -> new ComputerNotFoundException("Computer with brand " + provisionDto.getBrand() + " and version " + provisionDto.getVersion() + " was not found"));
         }
     }
 
