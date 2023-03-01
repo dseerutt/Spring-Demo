@@ -86,31 +86,6 @@
 							"response": []
 						},
 						{
-							"name": "Sale",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{hostname}}:{{port}}/client/sale?page=0",
-									"host": [
-										"{{hostname}}"
-									],
-									"port": "{{port}}",
-									"path": [
-										"client",
-										"sale"
-									],
-									"query": [
-										{
-											"key": "page",
-											"value": "0"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
 							"name": "Sale id",
 							"request": {
 								"method": "GET",
@@ -156,7 +131,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"id\": 2,\r\n    \"quantity\": 4\r\n}"
+											"raw": "{\r\n    \"id\": 1,\r\n    \"quantity\": 4\r\n}"
 										},
 										"url": {
 											"raw": "{{hostname}}:{{port}}/provider/computer/provision",
@@ -218,7 +193,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"brand\": \"Arc8 linux\",\r\n    \"version\": \"Version 40\",\r\n    \"description\": \"Added on test\",\r\n    \"price\": 29.99\r\n}"
+									"raw": "{\r\n    \"brand\": \"Arc8 linux\",\r\n    \"version\": \"Version 41\",\r\n    \"description\": \"Added on test\",\r\n    \"price\": 29.99\r\n}"
 								},
 								"url": {
 									"raw": "{{hostname}}:{{port}}/provider/computer",
@@ -247,7 +222,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"id\": \"6\",\r\n    \"brand\": \"Arc8 linux\",\r\n    \"version\": \"Version 41\",\r\n    \"description\": \"Added on test\",\r\n    \"price\": 29.90\r\n}"
+									"raw": "{\r\n    \"id\": 5,\r\n    \"brand\": \"Arc8 linux\",\r\n    \"version\": \"Version 48\",\r\n    \"description\": \"Added on test\",\r\n    \"price\": 29.90\r\n}"
 								},
 								"url": {
 									"raw": "{{hostname}}:{{port}}/provider/computer",
@@ -343,6 +318,31 @@
 										"provider",
 										"sale",
 										"{{saleId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Sale",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{hostname}}:{{port}}/provider/sale?page=1",
+									"host": [
+										"{{hostname}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"provider",
+										"sale"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										}
 									]
 								}
 							},
