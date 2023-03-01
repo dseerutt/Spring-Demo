@@ -13,8 +13,6 @@ import com.spring.demo.dseerutt.repository.ComputerRepository;
 import com.spring.demo.dseerutt.service.ComputerService;
 import com.spring.demo.dseerutt.service.validator.ComputerDtoValidator;
 import com.spring.demo.dseerutt.service.validator.ProviderDtoValidator;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,9 +23,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class ComputerServiceImpl implements ComputerService {
-    private static final Logger LOGGER = LogManager.getLogger(ComputerServiceImpl.class);
     private final ComputerDtoMapper computerMapper = Mappers.getMapper(ComputerDtoMapper.class);
     private final ProvisionDtoMapper provisionMapper = Mappers.getMapper(ProvisionDtoMapper.class);
+    private final static String COMPUTER_NOT_FOUND_ID_MESSAGE = "Computer not found with id %s";
 
     @Autowired
     private ComputerRepository computerRepository;
@@ -38,7 +36,7 @@ public class ComputerServiceImpl implements ComputerService {
 
     @Override
     public ComputerDto getComputer(int id) {
-        return computerMapper.computerToComputerDto(computerRepository.findById(id).orElseThrow(() -> new ComputerNotFoundException("Computer not found with id " + id)));
+        return computerMapper.computerToComputerDto(computerRepository.findById(id).orElseThrow(() -> new ComputerNotFoundException(COMPUTER_NOT_FOUND_ID_MESSAGE.formatted(id))));
     }
 
     @Override

@@ -6,6 +6,7 @@ import com.spring.demo.dseerutt.model.exception.computer.ComputerAlreadyExistsEx
 import com.spring.demo.dseerutt.model.exception.computer.ComputerNotFoundException;
 import com.spring.demo.dseerutt.model.exception.server.ValidationException;
 import com.spring.demo.dseerutt.service.ComputerService;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,7 +96,7 @@ class ProviderComputerControllerTest {
      */
     @Test
     void addComputerTestComputerAlreadyExists() throws Exception {
-        when(computerService.addComputer(any())).thenThrow(new ComputerAlreadyExistsException(""));
+        when(computerService.addComputer(any())).thenThrow(new ComputerAlreadyExistsException(StringUtils.EMPTY));
 
         mvc.perform(post("/provider/computer")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -112,7 +113,7 @@ class ProviderComputerControllerTest {
      */
     @Test
     void addComputerTestValidationException() throws Exception {
-        when(computerService.addComputer(any())).thenThrow(new ValidationException(""));
+        when(computerService.addComputer(any())).thenThrow(new ValidationException(StringUtils.EMPTY));
 
         mvc.perform(post("/provider/computer")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -149,7 +150,7 @@ class ProviderComputerControllerTest {
      */
     @Test
     void updateComputerValidationExceptionTest() throws Exception {
-        when(computerService.updateComputer(any())).thenThrow(new ValidationException(""));
+        when(computerService.updateComputer(any())).thenThrow(new ValidationException(StringUtils.EMPTY));
 
         mvc.perform(put("/provider/computer")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -166,7 +167,7 @@ class ProviderComputerControllerTest {
      */
     @Test
     void updateComputerComputerNotFoundTest() throws Exception {
-        when(computerService.updateComputer(any())).thenThrow(new ComputerNotFoundException(""));
+        when(computerService.updateComputer(any())).thenThrow(new ComputerNotFoundException(StringUtils.EMPTY));
 
         mvc.perform(put("/provider/computer")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -200,7 +201,7 @@ class ProviderComputerControllerTest {
      */
     @Test
     void provisionComputerComputerNotFoundTest() throws Exception {
-        when(computerService.provisionComputer(any())).thenThrow(new ComputerNotFoundException(""));
+        when(computerService.provisionComputer(any())).thenThrow(new ComputerNotFoundException(StringUtils.EMPTY));
 
         mvc.perform(post("/provider/computer/provision")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -234,7 +235,7 @@ class ProviderComputerControllerTest {
      */
     @Test
     void deprovisionComputerComputerNotFoundTest() throws Exception {
-        when(computerService.deprovisionComputer(any())).thenThrow(new ComputerNotFoundException(""));
+        when(computerService.deprovisionComputer(any())).thenThrow(new ComputerNotFoundException(StringUtils.EMPTY));
 
         mvc.perform(post("/provider/computer/deprovision")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)

@@ -75,7 +75,7 @@ class SaleDtoValidatorTest {
                 ValidationException.class,
                 () -> saleDtoValidator.validatePost(saleDto),
                 "Should throw ValidationException");
-        assertEquals("Sale quantity cannot be " + quantity + " or negative", exception.getReason());
+        assertEquals("Sale quantity cannot be %s or negative".formatted(quantity), exception.getReason());
         assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
     }
 
@@ -140,7 +140,7 @@ class SaleDtoValidatorTest {
                 ValidationException.class,
                 () -> saleDtoValidator.validatePost(saleDto),
                 "Should throw ValidationException");
-        assertEquals("Failed to parse saleDate " + saleDate, exception.getReason());
+        assertEquals("Failed to parse saleDate %s".formatted(saleDate), exception.getReason());
         assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
     }
 
@@ -156,7 +156,7 @@ class SaleDtoValidatorTest {
                 ValidationException.class,
                 () -> saleDtoValidator.validatePut(saleDto),
                 "Should throw ValidationException");
-        assertEquals("Sale quantity cannot be " + quantity + " or negative", exception.getReason());
+        assertEquals("Sale quantity cannot be %s or negative".formatted(quantity), exception.getReason());
         assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
     }
 
@@ -225,7 +225,7 @@ class SaleDtoValidatorTest {
                 ValidationException.class,
                 () -> saleDtoValidator.validatePut(saleDto),
                 "Should throw ValidationException");
-        assertEquals("Failed to parse saleDate " + saleDate, exception.getReason());
+        assertEquals("Failed to parse saleDate %s".formatted(saleDate), exception.getReason());
         assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
     }
 
@@ -261,7 +261,7 @@ class SaleDtoValidatorTest {
                 () -> saleDtoValidator.validatePost(saleDto),
                 "Should throw ComputerNotFoundException"
         );
-        assertEquals("Computer not found with brand " + computerBrand + " and version " + computerVersion, exception.getReason());
+        assertEquals("Computer with brand %s and version %s was not found".formatted(computerBrand, computerVersion), exception.getReason());
         assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
     }
 
@@ -284,7 +284,7 @@ class SaleDtoValidatorTest {
                 () -> saleDtoValidator.validatePost(saleDto),
                 "Should throw EmptyStoreException"
         );
-        assertEquals("Not enough stock to buy computer with id " + COMPUTER_ID, exception.getReason());
+        assertEquals("Not enough stock to buy computer with id %s".formatted(COMPUTER_ID), exception.getReason());
         assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
     }
 
@@ -314,7 +314,7 @@ class SaleDtoValidatorTest {
                 () -> saleDtoValidator.validatePut(saleDto),
                 "Should throw ValidationException"
         );
-        assertEquals("Sale Id cannot be 0", exception.getReason());
+        assertEquals("Sale Id cannot be 0 using PUT", exception.getReason());
         assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
     }
 
@@ -335,7 +335,7 @@ class SaleDtoValidatorTest {
                 () -> saleDtoValidator.validatePut(saleDto),
                 "Should throw SaleNotFoundException"
         );
-        assertEquals("Sale with id " + saleDto.getId() + " was not found", exception.getReason());
+        assertEquals("Sale with id %s was not found".formatted(saleDto.getId()), exception.getReason());
         assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
     }
 

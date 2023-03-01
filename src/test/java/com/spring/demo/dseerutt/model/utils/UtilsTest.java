@@ -29,7 +29,7 @@ class UtilsTest {
                 DateParsingException.class,
                 () -> Utils.parseDate(wrongDate),
                 "Should throw DateParsingException");
-        assertEquals("Failed to parse date " + wrongDate, exception.getReason());
+        assertEquals("Failed to parse date %s".formatted(wrongDate), exception.getReason());
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, exception.getStatusCode());
     }
 

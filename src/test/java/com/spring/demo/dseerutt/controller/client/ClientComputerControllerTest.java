@@ -3,6 +3,7 @@ package com.spring.demo.dseerutt.controller.client;
 import com.spring.demo.dseerutt.dto.item.client.ComputerDto;
 import com.spring.demo.dseerutt.model.exception.computer.ComputerNotFoundException;
 import com.spring.demo.dseerutt.service.ComputerService;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +64,7 @@ class ClientComputerControllerTest {
         int computerId = 1;
         when(computerService.getComputer(computerId)).thenReturn(computerDto);
 
-        mvc.perform(get("/client/computer/" + computerId).contentType(MediaType.APPLICATION_JSON))
+        mvc.perform(get("/client/computer/%s".formatted(computerId)).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content()
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -78,9 +79,9 @@ class ClientComputerControllerTest {
     @Test
     void getComputerNotFoundTest() throws Exception {
         int computerId = 1;
-        when(computerService.getComputer(computerId)).thenThrow(new ComputerNotFoundException(""));
+        when(computerService.getComputer(computerId)).thenThrow(new ComputerNotFoundException(StringUtils.EMPTY));
 
-        mvc.perform(get("/client/computer/" + computerId).contentType(MediaType.APPLICATION_JSON))
+        mvc.perform(get("/client/computer/%s".formatted(computerId)).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
 
@@ -98,7 +99,7 @@ class ClientComputerControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content()
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(content().json("[" + COMPUTER_JSON + "]"));
+                .andExpect(content().json("[%s]".formatted(COMPUTER_JSON)));
     }
 
     /**

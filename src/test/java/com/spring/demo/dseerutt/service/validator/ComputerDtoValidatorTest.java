@@ -133,7 +133,7 @@ class ComputerDtoValidatorTest {
                 ComputerAlreadyExistsException.class,
                 () -> computerDtoValidator.validatePost(lightComputerDto),
                 "Should throw ComputerAlreadyExistsException");
-        assertEquals("Computer with brand " + lightComputerDto.getBrand() + " and version " + lightComputerDto.getVersion() + " already exists", exception.getReason());
+        assertEquals("Computer with brand %s and version %s already exists".formatted(lightComputerDto.getBrand(), lightComputerDto.getVersion()), exception.getReason());
         assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
     }
 
@@ -162,7 +162,7 @@ class ComputerDtoValidatorTest {
                 ComputerNotFoundException.class,
                 () -> computerDtoValidator.validatePut(lightComputerDto),
                 "Should throw ComputerNotFoundException");
-        assertEquals("Computer with id " + COMPUTER_ID + " was not found", exception.getReason());
+        assertEquals("Computer with id %s was not found".formatted(COMPUTER_ID), exception.getReason());
         assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
     }
 

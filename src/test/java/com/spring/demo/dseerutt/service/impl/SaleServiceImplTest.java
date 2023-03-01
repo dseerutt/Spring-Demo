@@ -119,7 +119,7 @@ class SaleServiceImplTest {
                 SaleNotFoundException.class,
                 () -> saleServiceImpl.getSale(SALE_ID),
                 "Should throw SaleNotFoundException");
-        assertEquals("Sale not found with id " + SALE_ID, exception.getReason());
+        assertEquals("Sale not found with id %s".formatted(SALE_ID), exception.getReason());
         assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
     }
 

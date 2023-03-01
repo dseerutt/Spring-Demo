@@ -126,7 +126,7 @@ class ComputerServiceImplTest {
                 ComputerNotFoundException.class,
                 () -> computerServiceImpl.getComputer(COMPUTER_ID),
                 "Should throw ComputerNotFoundException");
-        assertEquals("Computer not found with id " + COMPUTER_ID, exception.getReason());
+        assertEquals("Computer not found with id %s".formatted(COMPUTER_ID), exception.getReason());
         assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
     }
 

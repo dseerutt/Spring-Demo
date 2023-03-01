@@ -103,7 +103,7 @@ class ProviderSaleControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content()
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(content().json("[" + SALE_JSON + "]"));
+                .andExpect(content().json("[%s]".formatted(SALE_JSON)));
     }
 
     /**

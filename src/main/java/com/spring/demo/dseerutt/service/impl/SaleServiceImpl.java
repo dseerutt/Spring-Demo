@@ -22,6 +22,9 @@ import java.util.stream.Collectors;
 @Service
 public class SaleServiceImpl implements SaleService {
     private static final Logger LOGGER = LogManager.getLogger(SaleServiceImpl.class);
+    private static final String SALE_NOT_FOUND_MESSAGE = "Sale not found with id %s";
+    private static final String DELETION_TO_DO_MESSAGE = "Id %s was found for sale deletion";
+    private static final String DELETION_NOTHING_TO_DO_MESSAGE = "Nothing to delete";
 
     @Autowired
     private SaleDtoValidator saleDtoValidator;
@@ -32,7 +35,7 @@ public class SaleServiceImpl implements SaleService {
     @Override
     public SaleDto getSale(int id) {
         return mapper.saleToSaleDto(saleRepository.findById(id)
-                .orElseThrow(() -> new SaleNotFoundException("Sale not found with id " + id)));
+                .orElseThrow(() -> new SaleNotFoundException(SALE_NOT_FOUND_MESSAGE.formatted(id))));
     }
 
     @Override
@@ -62,10 +65,10 @@ public class SaleServiceImpl implements SaleService {
     @Override
     public void deleteSale(int id) {
         if (saleDtoValidator.validateDelete(id)) {
-            LOGGER.info("Id " + id + " was found for sale deletion");
+            LOGGER.info(DELETION_TO_DO_MESSAGE.formatted(id));
             saleRepository.deleteById(id);
         } else {
-            LOGGER.info("Nothing to delete");
+            LOGGER.info(DELETION_NOTHING_TO_DO_MESSAGE);
         }
     }
 

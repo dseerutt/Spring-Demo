@@ -72,7 +72,7 @@ class ProviderDtoValidatorTest {
                 ComputerNotFoundException.class,
                 () -> providerDtoValidator.validateProvision(provisionDto),
                 "Should throw ComputerNotFoundException");
-        assertEquals("Computer with id " + computerId + " was not found", exception.getReason());
+        assertEquals("Computer with id %s was not found".formatted(computerId), exception.getReason());
         assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
     }
 
@@ -107,7 +107,7 @@ class ProviderDtoValidatorTest {
                 ComputerNotFoundException.class,
                 () -> providerDtoValidator.validateProvision(provisionDto),
                 "Should throw ComputerNotFoundException");
-        assertEquals("Computer with brand " + brand + " and version " + version + " was not found", exception.getReason());
+        assertEquals("Computer with brand %s and version %s was not found".formatted(brand, version), exception.getReason());
         assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
     }
 
@@ -143,7 +143,7 @@ class ProviderDtoValidatorTest {
                 EmptyStoreException.class,
                 () -> providerDtoValidator.validateDeprovision(provisionDto),
                 "Should throw ComputerNotFoundException");
-        assertEquals("Cannot deprovision computer " + COMPUTER_ID + ", there is not enough stock", exception.getReason());
+        assertEquals("Cannot deprovision computer %s, there is not enough stock".formatted(COMPUTER_ID), exception.getReason());
         assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
     }
 
@@ -165,7 +165,7 @@ class ProviderDtoValidatorTest {
                 ComputerNotFoundException.class,
                 () -> providerDtoValidator.validateDeprovision(provisionDto),
                 "Should throw ComputerNotFoundException");
-        assertEquals("Computer with id " + computerId + " was not found", exception.getReason());
+        assertEquals("Computer with id %s was not found".formatted(computerId), exception.getReason());
         assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
     }
 
@@ -204,7 +204,7 @@ class ProviderDtoValidatorTest {
                 EmptyStoreException.class,
                 () -> providerDtoValidator.validateDeprovision(provisionDto),
                 "Should throw ComputerNotFoundException");
-        assertEquals("Cannot deprovision computer " + COMPUTER_ID + ", there is not enough stock", exception.getReason());
+        assertEquals("Cannot deprovision computer %s, there is not enough stock".formatted(COMPUTER_ID), exception.getReason());
         assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
     }
 
@@ -226,7 +226,7 @@ class ProviderDtoValidatorTest {
                 ComputerNotFoundException.class,
                 () -> providerDtoValidator.validateDeprovision(provisionDto),
                 "Should throw ComputerNotFoundException");
-        assertEquals("Computer with brand " + brand + " and version " + version + " was not found", exception.getReason());
+        assertEquals("Computer with brand %s and version %s was not found".formatted(brand, version), exception.getReason());
         assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
     }
 }

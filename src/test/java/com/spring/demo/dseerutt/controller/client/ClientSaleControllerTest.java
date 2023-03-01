@@ -6,6 +6,7 @@ import com.spring.demo.dseerutt.model.exception.computer.ComputerNotFoundExcepti
 import com.spring.demo.dseerutt.model.exception.computer.EmptyStoreException;
 import com.spring.demo.dseerutt.model.exception.server.ValidationException;
 import com.spring.demo.dseerutt.service.SaleService;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,7 +83,7 @@ class ClientSaleControllerTest {
      */
     @Test
     void addSaleComputerNotFoundTest() throws Exception {
-        when(saleService.addSale(any())).thenThrow(new ComputerNotFoundException(""));
+        when(saleService.addSale(any())).thenThrow(new ComputerNotFoundException(StringUtils.EMPTY));
 
         mvc.perform(post("/client/sale")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -99,7 +100,7 @@ class ClientSaleControllerTest {
      */
     @Test
     void addSaleValidationExceptionTest() throws Exception {
-        when(saleService.addSale(any())).thenThrow(new ValidationException(""));
+        when(saleService.addSale(any())).thenThrow(new ValidationException(StringUtils.EMPTY));
 
         mvc.perform(post("/client/sale")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -116,7 +117,7 @@ class ClientSaleControllerTest {
      */
     @Test
     void addSaleEmptyStoreExceptionTest() throws Exception {
-        when(saleService.addSale(any())).thenThrow(new EmptyStoreException(""));
+        when(saleService.addSale(any())).thenThrow(new EmptyStoreException(StringUtils.EMPTY));
 
         mvc.perform(post("/client/sale")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -139,7 +140,7 @@ class ClientSaleControllerTest {
         int saleId = 1;
         when(saleService.getSale(saleId)).thenReturn(saleDto);
 
-        mvc.perform(get("/client/sale/" + saleId).contentType(MediaType.APPLICATION_JSON))
+        mvc.perform(get("/client/sale/%s".formatted(saleId)).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content()
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -154,9 +155,9 @@ class ClientSaleControllerTest {
     @Test
     void getSaleFoundTest() throws Exception {
         int saleId = 1;
-        when(saleService.getSale(saleId)).thenThrow(new SaleNotFoundException(""));
+        when(saleService.getSale(saleId)).thenThrow(new SaleNotFoundException(StringUtils.EMPTY));
 
-        mvc.perform(get("/client/sale/" + saleId).contentType(MediaType.APPLICATION_JSON))
+        mvc.perform(get("/client/sale/%s".formatted(saleId)).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
 }
