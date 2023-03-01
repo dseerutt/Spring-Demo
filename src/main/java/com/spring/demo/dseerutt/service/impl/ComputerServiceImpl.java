@@ -8,6 +8,7 @@ import com.spring.demo.dseerutt.dto.mapper.ComputerDtoMapper;
 import com.spring.demo.dseerutt.dto.mapper.ProvisionDtoMapper;
 import com.spring.demo.dseerutt.model.exception.computer.ComputerNotFoundException;
 import com.spring.demo.dseerutt.model.object.Computer;
+import com.spring.demo.dseerutt.model.utils.Utils;
 import com.spring.demo.dseerutt.repository.ComputerRepository;
 import com.spring.demo.dseerutt.service.ComputerService;
 import com.spring.demo.dseerutt.service.validator.ComputerDtoValidator;
@@ -18,9 +19,8 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -56,7 +56,7 @@ public class ComputerServiceImpl implements ComputerService {
     public ComputerDto addComputer(LightComputerDto lightComputerDto) {
         computerDtoValidator.validatePost(lightComputerDto);
         var computer = computerMapper.computerDtoToComputer(lightComputerDto);
-        computer.setSerialNumber(UUID.randomUUID().toString());
+        computer.setSerialNumber(Utils.getRandomUUIDString());
         return computerMapper.computerToComputerDto(computerRepository.save(computer));
     }
 
@@ -76,7 +76,7 @@ public class ComputerServiceImpl implements ComputerService {
         var computer = providerDtoValidator.validateProvision(provisionDto);
         var computerStore = computer.getComputerStore();
         computerStore.setStock(computerStore.getStock() + provisionDto.getQuantity());
-        computerStore.setLastProvisionDate(new Date(System.currentTimeMillis()));
+        computerStore.setLastProvisionDate(LocalDate.now());
         Computer savedElement = computerRepository.save(computer);
         return provisionMapper.computerToProvisionDto(savedElement);
     }
@@ -86,7 +86,7 @@ public class ComputerServiceImpl implements ComputerService {
         var computer = providerDtoValidator.validateDeprovision(provisionDto);
         var computerStore = computer.getComputerStore();
         computerStore.setStock(computerStore.getStock() - provisionDto.getQuantity());
-        computerStore.setLastProvisionDate(new Date(System.currentTimeMillis()));
+        computerStore.setLastProvisionDate(LocalDate.now());
         var savedElement = computerRepository.save(computer);
         return provisionMapper.computerToProvisionDto(savedElement);
     }

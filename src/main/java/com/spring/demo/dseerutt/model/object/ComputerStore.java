@@ -3,7 +3,7 @@ package com.spring.demo.dseerutt.model.object;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 @EqualsAndHashCode
 @ToString
@@ -24,7 +24,7 @@ public class ComputerStore {
     private Computer computer;
 
     @Column(name = "lastProvisionDate")
-    private Date lastProvisionDate;
+    private LocalDate lastProvisionDate;
 
     @Column(name = "enabled")
     private boolean enabled;

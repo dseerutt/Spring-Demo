@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.UUID;
 
 public class Utils {
     private static final Logger LOGGER = LogManager.getLogger(SaleServiceImpl.class);
@@ -27,5 +28,9 @@ public class Utils {
             LOGGER.error(message, e);
             throw new DateParsingException(message);
         }
+    }
+
+    public static String getRandomUUIDString(){
+        return UUID.randomUUID().toString();
     }
 }
